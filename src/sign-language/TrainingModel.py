@@ -21,4 +21,3 @@ class TrainingModel:
         self.setTest = set_test
         self.setTrain = set_train
 
-        
