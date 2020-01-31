@@ -5,9 +5,20 @@
 """
 
 import tensorflow as tf
+from tensorflow import keras
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 class TrainingModel:
-    def __init__(self):
-        self.x = 0
-        self.y = 0
+
+    def __init__(self, set_test, set_train):
+        """
+        Initialize Training Model
+        :param set_test: test set
+        :param set_train: training set
+        """
+        self.setTest = set_test
+        self.setTrain = set_train
+
+        
