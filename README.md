@@ -3,10 +3,10 @@
 This is our Hand Recognition App for SheHacks.
 
 ## Authors:
-Ryan Nicholas, Sophomore
-Matt Gonley, Sophomore
-Marcus Tran, Sophomore
-Nicole Fitz, Sophomore 
+- Ryan Nicholas, Sophomore
+- Matt Gonley, Sophomore
+- Marcus Tran, Sophomore
+- Nicole Fitz, Sophomore 
 
 ## Purpose
 The purpose of our program is to 
