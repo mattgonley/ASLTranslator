@@ -29,7 +29,7 @@ class TrainingModel:
         self.model = None
         self.total_train = 0
         self.total_validate = 0
-        self.batch_size = 128
+        self.batch_size = 100
         self.IMG_HEIGHT = 200
         self.IMG_WIDTH = 200
         print("Training: ", self.setTrain)
@@ -65,40 +65,49 @@ class TrainingModel:
         total = self.total_validate + self.total_train
 
         image_generator = ImageDataGenerator(rescale=1./255)
+        validate_generator = ImageDataGenerator(rescale=1./255)
 
         train_data_gen = image_generator.flow_from_directory(directory=self.setTrain,
                                                              batch_size=self.batch_size,
                                                              shuffle=True,
                                                              target_size=(self.IMG_HEIGHT, self.IMG_WIDTH),
-                                                             classes=training_labels)
-        test_data_gen = image_generator.flow_from_directory(directory=self.setTest,
-                                                            batch_size=self.batch_size,
-                                                            shuffle=True,
-                                                            target_size=(self.IMG_HEIGHT, self.IMG_WIDTH),
-                                                            classes=test_labels)
+                                                             classes=training_labels,
+                                                             class_mode='categorical')
+        test_data_gen = validate_generator.flow_from_directory(self.setTest,
+                                                               batch_size=self.batch_size,
+                                                               shuffle=True,
+                                                               target_size=(self.IMG_HEIGHT, self.IMG_WIDTH),
+                                                               classes=test_labels,
+                                                               class_mode='categorical')
 
-        self.createModel(training_images, training_labels, test_images, test_labels)
+        self.createModel(train_data_gen, test_data_gen)
 
-
-
-
-    def createModel(self, train_images, train_label, test_images, test_label):
+    def createModel(self, train_data, test_data):
         """
         Initialize Model
         :return: None
         """
         self.model = Sequential([
+            Conv2D(16, 3, padding='same', activation='relu', input_shape=(200, 200, 3)),
+            MaxPool2D(),
+            Dropout(0.2),
+            Conv2D(32, 3, padding='same', activation='relu', input_shape=(200, 200, 3)),
+            MaxPool2D(),
+            Dropout(0.2),
             Flatten(input_shape=(200, 200)),
             Dense(128, activation='relu'),
-            Dense(10, activation='softmax')
+            Dense(28, activation='sigmoid')
         ])
 
         self.model.compile(optimizer='adam',
-                           loss='sparse_categorical_crossentropy',
+                           loss='categorical_crossentropy',
                            metrics=['accuracy'])
+
+        print("Image Shape: ", train_data.image_shape)
+        self.model.build(input_shape=(None, 200, 200, 3))
         self.model.summary()
 
-        self.model.fit(train_images, train_label, epochs=1,
-                       validation_data=(test_images, test_label),
-                       batch_size=self.batch_size)
+        self.model.fit_generator(train_data,
+                                 epochs=10,
+                                 validation_data=test_data)
 
