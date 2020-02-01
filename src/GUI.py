@@ -36,7 +36,7 @@ def show_frame():
 show_frame()
 
 
-holder = Text(root, height=25, width=25, font=('Times New Roman', 28))
+holder = Text(root, height=25, width=25, font=('Times New Roman', 28), bg="black", fg="white")
 scrollbar = Scrollbar(root, command=holder.yview)
 holder['yscrollcommand'] = scrollbar.set
 #scrollbar.config(command=holder.yview)
