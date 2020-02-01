@@ -13,7 +13,7 @@ if __name__ == '__main__':
     """
     This is our main code here 
     """
-    textbox = TextBox.TextBox()
+    #textbox = TextBox.TextBox()
 
 
     directory = os.getcwd()
@@ -25,4 +25,4 @@ if __name__ == '__main__':
 
     model.initialize_classification()
 
-    window = GUI.Window(800, 600)
+    #window = GUI.Window(800, 600)

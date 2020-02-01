@@ -26,7 +26,7 @@ class TrainingModel:
         self.model = None
         self.total_train = 0
         self.total_validate = 0
-        self.batch_size = 100
+        self.batch_size = 200
         self.IMG_HEIGHT = 200
         self.IMG_WIDTH = 200
         print("Training: ", self.setTrain)
@@ -98,7 +98,7 @@ class TrainingModel:
 
         self.model.compile(optimizer='adam',
                            loss='categorical_crossentropy',
-                           metrics=["accuracy"])
+                           metrics=['accuracy'])
 
         print("Image Shape: ", train_data.image_shape)
         self.model.build(input_shape=(None, 200, 200, 3))
