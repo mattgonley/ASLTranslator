@@ -128,7 +128,7 @@ class TrainingModel:
         :param img: Frame Image from OpenCV
         :return: sign lanugage letter
         """
-        self.model = keras.models.load_model('MyModel.h5')
+        self.model = keras.models.load_model('MyModel2.h5')
 
         self.model.summary()
 
@@ -139,21 +139,9 @@ class TrainingModel:
             f.extend(dirnames)
             break
 
-        avg = np.average(predict[0])
-
-        print(predict)
-
-        print(avg)
-
-        if avg <= 10**-9:
-            i = 1
-        elif avg <= 10**-8:
-            i = 0
-        else:
-            i = 2
+        i = predict.argmax(axis=1)[0]
 
         label = f[i]
-
 
         return label
 

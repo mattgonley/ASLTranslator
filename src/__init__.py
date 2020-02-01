@@ -20,7 +20,7 @@ if __name__ == '__main__':
     """
     #textbox = TextBox.TextBox()
 
-    window = GUI.Window()
+    #window = GUI.Window()
 
     directory = os.getcwd()
     index = directory.index("src")
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     # model.initialize_classification()
 
-    test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\A\\A20.jpg")
+    test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\A\\A100.jpg")
     output = test_image.copy()
     test_image = cv2.resize(test_image, (200, 200))
     test_image = test_image.astype('float') / 255.0
