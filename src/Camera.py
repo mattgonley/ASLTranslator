@@ -9,6 +9,7 @@ from __future__ import print_function
 import cv2 as cv
 import argparse
 from src import TrainingModel
+import os
 
 def classify_image(img):
     """
@@ -16,8 +17,13 @@ def classify_image(img):
     :param img: frame for the image
     :return: image type
     """
-    model = TrainingModel.TrainingModel(None, None)
-    img = cv.imread(img)
+
+    directory = os.getcwd()
+    index = directory.index("src")
+    directory = directory[0:index] + "asl-alphabet\\"
+    model = TrainingModel.TrainingModel(directory + "asl_alphabet_train\\asl_alphabet_train\\",
+                              directory + "asl_alphabet_test\\asl_alphabet_test\\")
+
     output = img.copy()
     test_image = cv.resize(img, (200, 200))
     test_image = test_image.astype('float') / 255.0
@@ -25,6 +31,8 @@ def classify_image(img):
     test_image = test_image.reshape((1, test_image.shape[0], test_image.shape[1], test_image.shape[2]))
 
     return model.evaluate(test_image)
+
+recapture = 0
 
 cap = cv.VideoCapture(0)
 while (True):
@@ -49,11 +57,16 @@ while (True):
             #           (15, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0,))
             #shows the coloured frame
             cv.imshow('Frame', frame)
-            print("Classified: ", classify_image(frame))
+
             #shows the masked frame
             cv.imshow('FG Mask', fgMask)
             # captures the frames
             cv.imwrite('frame.jpg', frame)
+
+            if recapture == 0:
+                print("Classifier: ", classify_image(frame))
+
+            recapture += 1 % 50
 
             keyboard = cv.waitKey(27)
             if keyboard == 27:

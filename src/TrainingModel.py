@@ -62,7 +62,7 @@ class TrainingModel:
         total = self.total_validate + self.total_train
 
         image_generator = ImageDataGenerator(rescale=1./255, horizontal_flip=True)
-        validate_generator = ImageDataGenerator(rescale=1./255, horizontal_flip=True)
+        validate_generator = ImageDataGenerator(rescale=1./255)
 
         train_data_gen = image_generator.flow_from_directory(directory=self.setTrain,
                                                              batch_size=self.batch_size,
@@ -85,6 +85,7 @@ class TrainingModel:
         Initialize Model
         :return: None
         """
+
         """
         self.model = Sequential([
             Conv2D(16, 3, padding='same', activation='relu', input_shape=(200, 200, 3)),
@@ -98,14 +99,15 @@ class TrainingModel:
             Dense(28, activation='sigmoid')
         ])
 
-        self.model.compile(optimizer='adam',
+        self.model.compile(optimizer='sgd',
                            loss='categorical_crossentropy',
                            metrics=['accuracy'])
 
         print("Image Shape: ", train_data.image_shape)
         self.model.build(input_shape=(None, 200, 200, 3))
         """
-        self.model = keras.models.load_model('MyModel.h5')
+
+        self.model = keras.models.load_model('MyModel2.h5')
         self.model.summary()
 
         self.model.fit_generator(train_data,
@@ -114,7 +116,7 @@ class TrainingModel:
                                  validation_data=test_data,
                                  validation_steps=self.total_validate // self.batch_size)
 
-        self.model.save("MyModel.h5")
+        self.model.save("MyModel2.h5")
         self.train(test_data)
 
     def evaluate(self, img):
@@ -124,7 +126,7 @@ class TrainingModel:
         :param img: Frame Image from OpenCV
         :return: sign lanugage letter
         """
-        self.model = keras.models.load_model('MyModel.h5')
+        self.model = keras.models.load_model('MyModel2.h5')
 
         self.model.summary()
 
@@ -147,7 +149,7 @@ class TrainingModel:
         :param test:
         :return:
         """
-        self.model = keras.models.load_model('MyModel.h5')
+        self.model = keras.models.load_model('MyModel2.h5')
         self.model.summary()
         print("Evaluate")
         self.model.evaluate(test)
