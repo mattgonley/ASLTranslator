@@ -113,7 +113,7 @@ class TrainingModel:
 
         self.model.fit_generator(train_data,
                                  steps_per_epoch=self.total_train // self.batch_size,
-                                 epochs=5,
+                                 epochs=1,
                                  validation_data=test_data,
                                  validation_steps=self.total_validate // self.batch_size,
                                  verbose=1)
@@ -139,21 +139,9 @@ class TrainingModel:
             f.extend(dirnames)
             break
 
-        avg = np.average(predict[0])
-
-        print(predict)
-
-        print(avg)
-
-        if avg <= 10**-9:
-            i = 1
-        elif avg <= 10**-8:
-            i = 0
-        else:
-            i = 2
+        i = predict.argmax(axis=1)[0]
 
         label = f[i]
-
 
         return label
 
