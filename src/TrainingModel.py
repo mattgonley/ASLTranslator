@@ -113,7 +113,7 @@ class TrainingModel:
 
         self.model.fit_generator(train_data,
                                  steps_per_epoch=self.total_train // self.batch_size,
-                                 epochs=5,
+                                 epochs=1,
                                  validation_data=test_data,
                                  validation_steps=self.total_validate // self.batch_size,
                                  verbose=1)
