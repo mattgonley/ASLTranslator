@@ -30,7 +30,9 @@ class Window:
         self.root.title("Sign Language Translator")
         geometry = "%dx%d" % (width, height)
         self.root.geometry(geometry)
+        TextBox(self.root)
         self.root.mainloop()
+
 
 class TextBox:
     def __init__(self, window):
