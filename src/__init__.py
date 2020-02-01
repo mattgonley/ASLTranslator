@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
     # model.initialize_classification()
 
-    test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\A\\A250.jpg")
+    test_image = cv2.imread(directory + "asl_alphabet_test\\asl_alphabet_test\\B\\B_test.jpg")
     output = test_image.copy()
     test_image = cv2.resize(test_image, (200, 200))
     test_image = test_image.astype('float') / 255.0
