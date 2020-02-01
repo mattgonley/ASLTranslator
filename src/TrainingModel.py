@@ -4,13 +4,10 @@
 :description: This is our code for the training model for our neural network
 """
 
-import tensorflow as tf
-from tensorflow import keras
+import keras
 from keras_preprocessing.image import ImageDataGenerator
 from keras.models import Sequential
 from keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPool2D
-import numpy as np
-import matplotlib.pyplot as plt
 import os
 from os import walk
 
@@ -108,6 +105,21 @@ class TrainingModel:
         self.model.summary()
 
         self.model.fit_generator(train_data,
+                                 steps_per_epoch=self.total_train // self.batch_size,
                                  epochs=10,
-                                 validation_data=test_data)
+                                 validation_data=test_data,
+                                 validation_steps=self.total_validate // self.batch_size)
 
+        self.model.save("MyModel.h5")
+
+    def evaluate(self, img):
+        """
+        Evaluate from OpenCV
+        and return the sign language letter
+        :param img: Frame Image from OpenCV
+        :return: sign lanugage letter
+        """
+        self.model = keras.models.load_model('MyModel.h5')
+        self.model.summary()
+
+        self.model.predict(img)
