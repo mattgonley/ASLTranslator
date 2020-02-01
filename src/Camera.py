@@ -11,9 +11,7 @@ import argparse
 
 cap = cv.VideoCapture(0)
 while (True):
-        #ret, frame = cap.read()
-        #gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-        #cv.imshow('frame', gray)
+
         parser = argparse.ArgumentParser(description='Performs background subtraction')
         #default is the video capture
         parser.add_argument('--input', type=str, help='Path to a video or image', default=cap)
