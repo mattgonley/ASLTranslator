@@ -8,9 +8,11 @@ from src import TrainingModel as mod
 from src import GUI
 from src import TextBox
 import os
+from keras.preprocessing.image import ImageDataGenerator
 from os import walk
 import cv2
 from keras_preprocessing.image import ImageDataGenerator
+# from src import Camera
 
 if __name__ == '__main__':
     """
@@ -27,8 +29,8 @@ if __name__ == '__main__':
                               directory + "asl_alphabet_test\\asl_alphabet_test\\")
 
     # model.initialize_classification()
-
-    test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\O\\O10.jpg")
+    """
+    test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\nothing\\nothing10.jpg")
     output = test_image.copy()
     test_image = cv2.resize(test_image, (200, 200))
     test_image = test_image.astype('float') / 255.0
@@ -40,3 +42,6 @@ if __name__ == '__main__':
     print('Prediction: ', predict)
 
     #window = GUI.Window(800, 600)
+    """
+    #cam = Camera
+    model.initialize_classification()

@@ -10,13 +10,14 @@ import cv2 as cv
 import argparse
 from src import TrainingModel
 
-def fix_image(img):
+def classify_image(img):
     """
     Fix the image to be sent to the classifier
     :param img: frame for the image
     :return: image type
     """
     model = TrainingModel.TrainingModel(None, None)
+    img = cv.imread(img)
     output = img.copy()
     test_image = cv.resize(img, (200, 200))
     test_image = test_image.astype('float') / 255.0
@@ -48,6 +49,7 @@ while (True):
             #           (15, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0,))
             #shows the coloured frame
             cv.imshow('Frame', frame)
+            print("Classified: ", classify_image(frame))
             #shows the masked frame
             cv.imshow('FG Mask', fgMask)
             # captures the frames
