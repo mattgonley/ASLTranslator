@@ -52,9 +52,7 @@ while (True):
             if frame is None:
                 break
             fgMask = backSub.apply(frame)
-            #cv.rectangle(frame, (10, 2), (100, 20), (255, 255, 255), -1)
-            #cv.putText(frame, str(cap.get(cv.CAP_PROP_POS_FRAMES)),
-            #           (15, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0,))
+
             #shows the coloured frame
             cv.imshow('Frame', frame)
 
