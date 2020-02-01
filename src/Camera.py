@@ -64,7 +64,7 @@ while (True):
             if recapture == 0:
                 print("Classifier: ", classify_image(frame))
 
-            recapture += 1 % 50
+            recapture = (recapture + 1) % 50
 
             keyboard = cv.waitKey(27)
             if keyboard == 27:
