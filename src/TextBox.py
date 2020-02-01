@@ -5,17 +5,10 @@ import cv2 as cv
 class TextBox:
     def __init__(self):
         window = Tk()
+        window.geometry("800x800")
         scrollbar = tk.Scrollbar(window)
         holder = tk.Text(window, height=50, width=500, yscrollcommand=scrollbar.set)
         holder.pack(side=tk.RIGHT)
-        window.geometry("800x800")
+        holder.tag_configure('size', font=('Times New Roman', 14))
+        holder.insert(****, 'size')
         window.mainloop()
-       # text.tag_configure('size', font=('Times New Roman', 14))
-       # test = "Hello, World"
-       # text.insert(test, 'size')
-
-
-
-
-
-
