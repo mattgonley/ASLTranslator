@@ -8,9 +8,11 @@ from src import TrainingModel as mod
 from src import GUI
 from src import TextBox
 import os
+from keras.preprocessing.image import ImageDataGenerator
 from os import walk
 import cv2
 from keras_preprocessing.image import ImageDataGenerator
+# from src import Camera
 
 if __name__ == '__main__':
     """
@@ -26,28 +28,20 @@ if __name__ == '__main__':
     model = mod.TrainingModel(directory + "asl_alphabet_train\\asl_alphabet_train\\",
                               directory + "asl_alphabet_test\\asl_alphabet_test\\")
 
-    model.initialize_classification()
-
-    test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\L\\L10.jpg")
+    # model.initialize_classification()
+    """
+    test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\nothing\\nothing10.jpg")
     output = test_image.copy()
     test_image = cv2.resize(test_image, (200, 200))
     test_image = test_image.astype('float') / 255.0
 
     test_image = test_image.reshape((1, test_image.shape[0], test_image.shape[1], test_image.shape[2]))
 
-    f = []
-    for (dirpath, dirnames, files) in walk(directory + "asl_alphabet_test\\asl_alphabet_test\\"):
-        f.extend(dirnames)
-        break
-
     predict = model.evaluate(test_image)
 
-    i = predict.argmax(axis=1)[0]
-
-    print("Predict: ", predict)
-
-    label = f[i]
-
-    print('Prediction: ', label)
+    print('Prediction: ', predict)
 
     #window = GUI.Window(800, 600)
+    """
+    #cam = Camera
+    model.initialize_classification()

@@ -77,8 +77,8 @@ class TrainingModel:
                                                                classes=test_labels,
                                                                class_mode='categorical')
 
-        #self.createModel(train_data_gen, test_data_gen)
-        self.train(test_data_gen)
+        self.createModel(train_data_gen, test_data_gen)
+        #self.train(test_data_gen)
 
     def createModel(self, train_data, test_data):
         """
@@ -110,11 +110,12 @@ class TrainingModel:
 
         self.model.fit_generator(train_data,
                                  steps_per_epoch=self.total_train // self.batch_size,
-                                 epochs=2,
+                                 epochs=1,
                                  validation_data=test_data,
                                  validation_steps=self.total_validate // self.batch_size)
 
         self.model.save("MyModel.h5")
+        self.train(test_data)
 
     def evaluate(self, img):
         """
@@ -129,7 +130,16 @@ class TrainingModel:
 
         predict = self.model.predict(img)
 
-        return predict
+        f = []
+        for (dirpath, dirnames, files) in walk(self.setTest):
+            f.extend(dirnames)
+            break
+
+        i = predict.argmax(axis=1)[0]
+
+        label = f[i]
+
+        return label
 
     def train(self, test):
         """
