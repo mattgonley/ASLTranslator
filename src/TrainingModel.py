@@ -6,13 +6,16 @@
 
 import tensorflow as tf
 from tensorflow import keras
+from keras_preprocessing.image import ImageDataGenerator
+from keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPool2D
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 
 class TrainingModel:
 
-    def __init__(self, set_test, set_train):
+    def __init__(self, set_train, set_test):
         """
         Initialize Training Model
         :param set_test: test set
@@ -21,3 +24,11 @@ class TrainingModel:
         self.setTest = set_test
         self.setTrain = set_train
 
+    def initialize_classification(self):
+        """
+        Initialize training model
+        :return: None
+        """
+        train_A_dir = os.path.join(self.setTest, 'A')
+        train_B_dir = os.path.join(self.setTest, 'B')
+        train_C_dir = os.path.join(self.setTest, 'C')
