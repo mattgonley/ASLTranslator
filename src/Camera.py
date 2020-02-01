@@ -32,9 +32,9 @@ def classify_image(img):
 
     return model.evaluate(test_image)
 
-recapture = 0
 
 cap = cv.VideoCapture(0)
+
 while (True):
 
         parser = argparse.ArgumentParser(description='Performs background subtraction')
@@ -60,7 +60,6 @@ while (True):
             cv.imshow('FG Mask', fgMask)
             # captures the frames
             cv.imwrite('frame.jpg', frame)
-
             if recapture == 0:
                 print("Classifier: ", classify_image(frame))
 

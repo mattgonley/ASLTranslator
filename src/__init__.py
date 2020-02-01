@@ -4,9 +4,9 @@
 :description: This is our main code for the Sign Language Translation App
 """
 
-import TrainingModel as mod
-import GUI
-import TextBox
+from src import TrainingModel as mod
+#from src import GUI
+#from src import TextBox
 import os
 from keras.preprocessing.image import ImageDataGenerator
 from os import walk
@@ -30,8 +30,8 @@ if __name__ == '__main__':
                               directory + "asl_alphabet_test\\asl_alphabet_test\\")
 
     # model.initialize_classification()
-    """
-    test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\O\\O10.jpg")
+
+    test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\A\\A20.jpg")
     output = test_image.copy()
     test_image = cv2.resize(test_image, (200, 200))
     test_image = test_image.astype('float') / 255.0
@@ -41,8 +41,8 @@ if __name__ == '__main__':
     predict = model.evaluate(test_image)
 
     print('Prediction: ', predict)
-    """
+
     #window = GUI.Window(800, 600)
 
     #cam = Camera
-    model.initialize_classification()
+    #model.initialize_classification()
