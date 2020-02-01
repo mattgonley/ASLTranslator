@@ -11,6 +11,8 @@ from keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPool2D
 import numpy as np
 import matplotlib.pyplot as plt
 import os
+from os import listdir
+from os.path import isfile, join
 
 
 class TrainingModel:
@@ -29,6 +31,8 @@ class TrainingModel:
         Initialize training model
         :return: None
         """
-        train_A_dir = os.path.join(self.setTest, 'A')
-        train_B_dir = os.path.join(self.setTest, 'B')
-        train_C_dir = os.path.join(self.setTest, 'C')
+        file_names = [f for f in listdir(self.setTrain) if isfile(join(self.setTrain, f))]
+        training_data = []
+        for files in file_names:
+            print(files)
+            training_data.append([self.setTrain + "\\" + files, files])

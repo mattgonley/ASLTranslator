@@ -18,5 +18,3 @@ if __name__ == '__main__':
     model = mod.TrainingModel(directory + "asl_alphabet_train\\asl_alphabet_train",
                               directory + "asl_alphabet_test\\asl_alphabet_test\\")
 
-
-
