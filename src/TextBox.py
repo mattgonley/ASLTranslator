@@ -10,5 +10,5 @@ class TextBox:
         holder = tk.Text(window, height=50, width=500, yscrollcommand=scrollbar.set)
         holder.pack(side=tk.RIGHT)
         holder.tag_configure('size', font=('Times New Roman', 14))
-        holder.insert(****, 'size')
+        holder.insert('****', 'size')
         window.mainloop()

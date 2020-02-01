@@ -26,7 +26,7 @@ class TrainingModel:
         self.model = None
         self.total_train = 0
         self.total_validate = 0
-        self.batch_size = 100
+        self.batch_size = 200
         self.IMG_HEIGHT = 200
         self.IMG_WIDTH = 200
         print("Training: ", self.setTrain)
@@ -61,8 +61,8 @@ class TrainingModel:
 
         total = self.total_validate + self.total_train
 
-        image_generator = ImageDataGenerator(rescale=1./255)
-        validate_generator = ImageDataGenerator(rescale=1./255)
+        image_generator = ImageDataGenerator(rescale=1./255, horizontal_flip=True)
+        validate_generator = ImageDataGenerator(rescale=1./255, horizontal_flip=True)
 
         train_data_gen = image_generator.flow_from_directory(directory=self.setTrain,
                                                              batch_size=self.batch_size,
@@ -77,12 +77,14 @@ class TrainingModel:
                                                                classes=test_labels,
                                                                class_mode='categorical')
 
-        self.createModel(train_data_gen, test_data_gen)
+        #self.createModel(train_data_gen, test_data_gen)
+        self.train(test_data_gen)
 
     def createModel(self, train_data, test_data):
         """
         Initialize Model
         :return: None
+        """
         """
         self.model = Sequential([
             Conv2D(16, 3, padding='same', activation='relu', input_shape=(200, 200, 3)),
@@ -102,11 +104,13 @@ class TrainingModel:
 
         print("Image Shape: ", train_data.image_shape)
         self.model.build(input_shape=(None, 200, 200, 3))
+        """
+        self.model = keras.models.load_model('MyModel.h5')
         self.model.summary()
 
         self.model.fit_generator(train_data,
                                  steps_per_epoch=self.total_train // self.batch_size,
-                                 epochs=10,
+                                 epochs=2,
                                  validation_data=test_data,
                                  validation_steps=self.total_validate // self.batch_size)
 
@@ -120,6 +124,20 @@ class TrainingModel:
         :return: sign lanugage letter
         """
         self.model = keras.models.load_model('MyModel.h5')
+
         self.model.summary()
 
-        self.model.predict(img)
+        predict = self.model.predict(img)
+
+        return predict
+
+    def train(self, test):
+        """
+        Test data
+        :param test:
+        :return:
+        """
+        self.model = keras.models.load_model('MyModel.h5')
+        self.model.summary()
+        print("Evaluate")
+        self.model.evaluate(test)
