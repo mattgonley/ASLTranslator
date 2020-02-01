@@ -98,7 +98,7 @@ class TrainingModel:
 
         self.model.compile(optimizer='adam',
                            loss='categorical_crossentropy',
-                           metrics=['accuracy'])
+                           metrics=["accuracy"])
 
         print("Image Shape: ", train_data.image_shape)
         self.model.build(input_shape=(None, 200, 200, 3))
@@ -122,4 +122,4 @@ class TrainingModel:
         self.model = keras.models.load_model('MyModel.h5')
         self.model.summary()
 
-        self.model.predict(img)
+        return self.model.predict(img)
