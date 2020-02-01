@@ -5,6 +5,7 @@
 """
 
 from src import TrainingModel as mod
+import GUI
 import os
 
 if __name__ == '__main__':
@@ -20,3 +21,4 @@ if __name__ == '__main__':
 
     model.initialize_classification()
 
+    window = GUI.Window(800, 600)
