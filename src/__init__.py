@@ -4,9 +4,9 @@
 :description: This is our main code for the Sign Language Translation App
 """
 
-import TrainingModel as mod
-import GUI
-import TextBox
+from src import TrainingModel as mod
+from src import GUI
+from src import TextBox
 import os
 
 if __name__ == '__main__':
