@@ -10,6 +10,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPool2D
 import os
 from os import walk
+import numpy as np
 
 
 class TrainingModel:
@@ -26,7 +27,7 @@ class TrainingModel:
         self.model = None
         self.total_train = 0
         self.total_validate = 0
-        self.batch_size = 200
+        self.batch_size = 64
         self.IMG_HEIGHT = 200
         self.IMG_WIDTH = 200
         print("Training: ", self.setTrain)
@@ -96,7 +97,7 @@ class TrainingModel:
             Dropout(0.2),
             Flatten(input_shape=(200, 200)),
             Dense(128, activation='relu'),
-            Dense(28, activation='sigmoid')
+            Dense(3, activation='sigmoid')
         ])
 
         self.model.compile(optimizer='sgd',
@@ -112,9 +113,10 @@ class TrainingModel:
 
         self.model.fit_generator(train_data,
                                  steps_per_epoch=self.total_train // self.batch_size,
-                                 epochs=1,
+                                 epochs=5,
                                  validation_data=test_data,
-                                 validation_steps=self.total_validate // self.batch_size)
+                                 validation_steps=self.total_validate // self.batch_size,
+                                 verbose=1)
 
         self.model.save("MyModel2.h5")
         self.train(test_data)
@@ -137,7 +139,18 @@ class TrainingModel:
             f.extend(dirnames)
             break
 
-        i = predict.argmax(axis=1)[0]
+        avg = np.average(predict[0])
+
+        print(predict)
+
+        print(avg)
+
+        if avg <= 10**-9:
+            i = 1
+        elif avg <= 10**-8:
+            i = 0
+        else:
+            i = 2
 
         label = f[i]
 
