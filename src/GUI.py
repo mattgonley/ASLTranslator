@@ -4,48 +4,33 @@
 :description: Main file for the GUI, contains the window, camera input,
  and display of translated text
 """
-from __future__ import print_function
+from __future__ import print_function   
 
-import tkinter
 
 import PIL
-from PIL import Image
-from PIL import ImageTk
-from tkinter import *
-import threading
-import datetime
-import imutils
+from PIL import Image,ImageTk
+import pytesseract
 import cv2
-import os
+from tkinter import *
+width, height = 800, 600
+cap = cv2.VideoCapture(0)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 
+root = Tk()
+root.bind('<Escape>', lambda e: root.quit())
+lmain = Label(root)
+lmain.pack()
 
-class Window:
+def show_frame():
+    _, frame = cap.read()
+    frame = cv2.flip(frame, 1)
+    cv2image = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
+    img = PIL.Image.fromarray(cv2image)
+    imgtk = ImageTk.PhotoImage(image=img)
+    lmain.imgtk = imgtk
+    lmain.configure(image=imgtk)
+    lmain.after(10, show_frame)
 
-    def __init__(self, video_source=0):
-        """
-
-        :param width: x "dimension" of the window,  pixels for the width
-        :param height: y "dimension" of the window, pixels for the height of the window
-        """
-        
-        self.root = Tk()
-        self.vid = cv2.VideoCapture(video_source)
-
-        self.canvas = tkinter.Canvas(self.root)
-        self.canvas.pack()
-        self.delay = 15
-        self.update()
-        self.root.title("Sign Language Translator")
-
-        self.root.mainloop()
-
-
-    def update(self):
-        ret, frame = self.vid.get_frame()
-
-        if ret:
-            self.photo = PIL.ImageTK.PhotoImage(image=PIL.Image.fromarray(frame))
-            self.canvas.create_image(0, 0, image=self.photo, anchor=Tk.NW)
-
-        self.window.after(self.delay, self.update)
-
+show_frame()
+root.mainloop()
