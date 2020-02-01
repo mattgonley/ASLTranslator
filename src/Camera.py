@@ -8,6 +8,22 @@ from __future__ import print_function
 
 import cv2 as cv
 import argparse
+from src import TrainingModel
+
+def fix_image(img):
+    """
+    Fix the image to be sent to the classifier
+    :param img: frame for the image
+    :return: image type
+    """
+    model = TrainingModel.TrainingModel(None, None)
+    output = img.copy()
+    test_image = cv.resize(img, (200, 200))
+    test_image = test_image.astype('float') / 255.0
+
+    test_image = test_image.reshape((1, test_image.shape[0], test_image.shape[1], test_image.shape[2]))
+
+    return model.evaluate(test_image)
 
 cap = cv.VideoCapture(0)
 while (True):

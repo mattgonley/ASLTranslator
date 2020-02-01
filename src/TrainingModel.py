@@ -129,7 +129,16 @@ class TrainingModel:
 
         predict = self.model.predict(img)
 
-        return predict
+        f = []
+        for (dirpath, dirnames, files) in walk(self.setTest):
+            f.extend(dirnames)
+            break
+
+        i = predict.argmax(axis=1)[0]
+
+        label = f[i]
+
+        return label
 
     def train(self, test):
         """
