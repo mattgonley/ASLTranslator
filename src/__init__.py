@@ -29,8 +29,8 @@ if __name__ == '__main__':
                               directory + "asl_alphabet_test\\asl_alphabet_test\\")
 
     # model.initialize_classification()
-
-    test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\C\\C10.jpg")
+    """
+    test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\O\\O10.jpg")
     output = test_image.copy()
     test_image = cv2.resize(test_image, (200, 200))
     test_image = test_image.astype('float') / 255.0
@@ -40,8 +40,8 @@ if __name__ == '__main__':
     predict = model.evaluate(test_image)
 
     print('Prediction: ', predict)
-
+    """
     #window = GUI.Window(800, 600)
 
     #cam = Camera
-    #model.initialize_classification()
+    model.initialize_classification()
