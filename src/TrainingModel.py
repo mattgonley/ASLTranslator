@@ -51,10 +51,14 @@ class TrainingModel:
             training_labels.append(dirs)
             self.total_train += len(os.listdir(self.setTrain + "\\" + dirs))
 
+        test_images = []
         test_labels = []
         for (dirpath, dirnames, files) in walk(self.setTest):
             test_labels.extend(dirnames)
             break
+
+        for dirs in test_labels:
+            test_images.append(self.setTest + "\\" + dirs)
 
         self.total_validate = len(os.listdir(self.setTest))
 
@@ -73,12 +77,12 @@ class TrainingModel:
                                                             target_size=(self.IMG_HEIGHT, self.IMG_WIDTH),
                                                             classes=test_labels)
 
-        image_batch, label_batch = next(train_data_gen)
+        self.createModel(training_images, training_labels, test_images, test_labels)
 
 
 
 
-    def createModel(self, train_data, validate_data):
+    def createModel(self, train_images, train_label, test_images, test_label):
         """
         Initialize Model
         :return: None
@@ -93,11 +97,8 @@ class TrainingModel:
                            loss='sparse_categorical_crossentropy',
                            metrics=['accuracy'])
         self.model.summary()
-        
-        self.model.fit_generator(train_data,
-                                 steps_per_epoch=self.total_train // self.batch_size,
-                                 epochs=10, validation_data=validate_data,
-                                 validation_steps=self.total_validate // self.batch_size)
 
-        self.model.evaluate_generator(validate_data)
+        self.model.fit(train_images, train_label, epochs=1,
+                       validation_data=(test_images, test_label),
+                       batch_size=self.batch_size)
 
