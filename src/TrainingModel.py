@@ -128,7 +128,7 @@ class TrainingModel:
         :param img: Frame Image from OpenCV
         :return: sign lanugage letter
         """
-        self.model = keras.models.load_model('MyModel.h5')
+        self.model = keras.models.load_model('MyModel2.h5')
 
         self.model.summary()
 
