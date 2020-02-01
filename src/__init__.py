@@ -5,7 +5,8 @@
 """
 
 from src import TrainingModel as mod
-import GUI
+from src import GUI
+from src import TextBox
 import os
 
 if __name__ == '__main__':
