@@ -61,8 +61,8 @@ class TrainingModel:
 
         total = self.total_validate + self.total_train
 
-        image_generator = ImageDataGenerator(rescale=1./255)
-        validate_generator = ImageDataGenerator(rescale=1./255)
+        image_generator = ImageDataGenerator(rescale=1./255, horizontal_flip=True)
+        validate_generator = ImageDataGenerator(rescale=1./255, horizontal_flip=True)
 
         train_data_gen = image_generator.flow_from_directory(directory=self.setTrain,
                                                              batch_size=self.batch_size,
@@ -84,6 +84,7 @@ class TrainingModel:
         Initialize Model
         :return: None
         """
+        """
         self.model = Sequential([
             Conv2D(16, 3, padding='same', activation='relu', input_shape=(200, 200, 3)),
             MaxPool2D(),
@@ -102,11 +103,13 @@ class TrainingModel:
 
         print("Image Shape: ", train_data.image_shape)
         self.model.build(input_shape=(None, 200, 200, 3))
+        """
+        self.model = keras.models.load_model('MyModel.h5')
         self.model.summary()
 
         self.model.fit_generator(train_data,
                                  steps_per_epoch=self.total_train // self.batch_size,
-                                 epochs=10,
+                                 epochs=2,
                                  validation_data=test_data,
                                  validation_steps=self.total_validate // self.batch_size)
 
@@ -122,4 +125,6 @@ class TrainingModel:
         self.model = keras.models.load_model('MyModel.h5')
         self.model.summary()
 
-        return self.model.predict(img)
+        predict = self.model.predict(img)
+
+        return predict

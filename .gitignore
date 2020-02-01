@@ -129,3 +129,10 @@ dmypy.json
 .pyre/
 
 .idea/
+
+asl-alphabet
+
+MyModel.h5
+
+src/MyModel.h5
+
