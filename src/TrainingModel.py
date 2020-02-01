@@ -93,8 +93,11 @@ class TrainingModel:
                            loss='sparse_categorical_crossentropy',
                            metrics=['accuracy'])
         self.model.summary()
-
+        
         self.model.fit_generator(train_data,
-                                 steps_per_epoch= self.total_train // self.batch_size,
-                                 epochs=10)
+                                 steps_per_epoch=self.total_train // self.batch_size,
+                                 epochs=10, validation_data=validate_data,
+                                 validation_steps=self.total_validate // self.batch_size)
+
+        self.model.evaluate_generator(validate_data)
 
