@@ -20,7 +20,7 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 root = Tk()
 root.bind('<Escape>', lambda e: root.quit())
 lmain = Label(root)
-lmain.pack()
+lmain.pack(side=LEFT)
 
 def show_frame():
     _, frame = cap.read()
@@ -33,4 +33,7 @@ def show_frame():
     lmain.after(10, show_frame)
 
 show_frame()
+
+root.geometry('1600x600')
+root.configure(bg='black')
 root.mainloop()
