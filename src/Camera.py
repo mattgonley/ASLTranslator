@@ -43,10 +43,10 @@ while (True):
         #default will be the KNN subtraction method, KNN seems to work better then MOG2
         parser.add_argument('--algo', type=str, help='background subtraction method (KNN, MOG2).', default='KNN')
         args = parser.parse_args()
-        if args.algo == 'MOG2':
-            backSub = cv.createBackgroundSubtractorMOG2()
-        else:
+        if args.algo == 'KNN':
             backSub = cv.createBackgroundSubtractorKNN()
+        else:
+            backSub = cv.createBackgroundSubtractorMOG2()
         while True:
             ret, frame = cap.read()
             if frame is None:
