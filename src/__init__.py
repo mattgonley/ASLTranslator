@@ -4,15 +4,18 @@
 :description: This is our main code for the Sign Language Translation App
 """
 
-from src import TrainingModel as mod
-from src import GUI
-from src import TextBox
+import TrainingModel as mod
+import GUI
+import TextBox
 import os
 
 if __name__ == '__main__':
     """
     This is our main code here 
     """
+    textbox = TextBox.TextBox()
+
+
     directory = os.getcwd()
     index = directory.index("src")
     directory = directory[0:index] + "asl-alphabet\\"
