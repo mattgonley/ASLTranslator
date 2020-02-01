@@ -51,11 +51,14 @@ class TrainingModel:
             training_labels.append(dirs)
             self.total_train += len(os.listdir(self.setTrain + "\\" + dirs))
 
+        test_labels = []
+        for (dirpath, dirnames, files) in walk(self.setTest):
+            test_labels.extend(dirnames)
+            break
+
         self.total_validate = len(os.listdir(self.setTest))
 
         total = self.total_validate + self.total_train
-
-        STEP_PER_EPOCH = np.ceil(total / self.batch_size)
 
         image_generator = ImageDataGenerator(rescale=1./255)
 
@@ -64,8 +67,14 @@ class TrainingModel:
                                                              shuffle=True,
                                                              target_size=(self.IMG_HEIGHT, self.IMG_WIDTH),
                                                              classes=training_labels)
+        test_data_gen = image_generator.flow_from_directory(directory=self.setTest,
+                                                            batch_size=self.batch_size,
+                                                            shuffle=True,
+                                                            target_size=(self.IMG_HEIGHT, self.IMG_WIDTH),
+                                                            classes=test_labels)
 
         image_batch, label_batch = next(train_data_gen)
+
 
 
 
@@ -85,4 +94,7 @@ class TrainingModel:
                            metrics=['accuracy'])
         self.model.summary()
 
-        self.model.fit(train_data)
+        self.model.fit_generator(train_data,
+                                 steps_per_epoch= self.total_train // self.batch_size,
+                                 epochs=10)
+
