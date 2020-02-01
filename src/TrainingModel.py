@@ -77,7 +77,8 @@ class TrainingModel:
                                                                classes=test_labels,
                                                                class_mode='categorical')
 
-        self.createModel(train_data_gen, test_data_gen)
+        #self.createModel(train_data_gen, test_data_gen)
+        self.train(test_data_gen)
 
     def createModel(self, train_data, test_data):
         """
@@ -123,8 +124,20 @@ class TrainingModel:
         :return: sign lanugage letter
         """
         self.model = keras.models.load_model('MyModel.h5')
+
         self.model.summary()
 
         predict = self.model.predict(img)
 
         return predict
+
+    def train(self, test):
+        """
+        Test data
+        :param test:
+        :return:
+        """
+        self.model = keras.models.load_model('MyModel.h5')
+        self.model.summary()
+        print("Evaluate")
+        self.model.evaluate(test)

@@ -26,7 +26,7 @@ if __name__ == '__main__':
     model = mod.TrainingModel(directory + "asl_alphabet_train\\asl_alphabet_train\\",
                               directory + "asl_alphabet_test\\asl_alphabet_test\\")
 
-    #model.initialize_classification()
+    model.initialize_classification()
 
     test_image = cv2.imread(directory + "asl_alphabet_train\\asl_alphabet_train\\L\\L10.jpg")
     output = test_image.copy()
