@@ -141,6 +141,7 @@ class TrainingModel:
 
         label = f[i]
 
+
         return label
 
     def train(self, test):
