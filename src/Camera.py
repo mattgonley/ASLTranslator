@@ -11,10 +11,11 @@ import argparse
 
 cap = cv.VideoCapture(0)
 while (True):
-        ret, frame = cap.read()
-        gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+        #ret, frame = cap.read()
+        #gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
         #cv.imshow('frame', gray)
         parser = argparse.ArgumentParser(description='Performs background subtraction')
+        #default is the video capture
         parser.add_argument('--input', type=str, help='Path to a video or image', default=cap)
         parser.add_argument('--algo', type=str, help='background subtraction method (KNN, MOG2).', default='MOG2')
         args = parser.parse_args()
@@ -30,7 +31,9 @@ while (True):
             cv.rectangle(frame, (10, 2), (100, 20), (255, 255, 255), -1)
             cv.putText(frame, str(cap.get(cv.CAP_PROP_POS_FRAMES)),
                        (15, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0,))
+            #shows the coloured frame
             cv.imshow('Frame', frame)
+            #shows the masked frame
             cv.imshow('FG Mask', fgMask)
             keyboard = cv.waitKey(27)
             if keyboard == 27:
