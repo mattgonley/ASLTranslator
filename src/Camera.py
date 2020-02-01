@@ -18,7 +18,6 @@ while (True):
         #cv.imshow('frame', gray)
         parser = argparse.ArgumentParser(description='Performs background subtraction')
         parser.add_argument('--input', type=str, help='Path to a video or image', default=cap)
-        # will need to change default
         parser.add_argument('--algo', type=str, help='background subtraction method (KNN, MOG2).', default='MOG2')
 
         args = parser.parse_args()
@@ -26,13 +25,7 @@ while (True):
             backSub = cv.createBackgroundSubtractorMOG2()
         else:
             backSub = cv.createBackgroundSubtractorKNN()
-        if cv.waitKey(1) & 0xFF == ord('q'):
-            break
-        #capture = cap
-        #cv.VideoCapture(cv.samples.findFileOrKeep(args.input))
-        #if not cap.isOpened:
-         #   print('Uable to open: ' + args.input)
-          #  exit(0)
+
         while True:
             ret, frame = cap.read()
             if frame is None:
@@ -45,11 +38,10 @@ while (True):
                        (15, 15), cv.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0,))
             cv.imshow('Frame', frame)
             cv.imshow('FG Mask', fgMask)
-            keyboard = cv.waitKey(30)
-            if keyboard == 'q' or keyboard == 27:
+            keyboard = cv.waitKey(27)
+            if keyboard == 27:
+                exit(0)
                 break
-        if cv.waitKey(1) & 0xFF == ord('q'):
-            break
 
 cap.release()
 cv.destroyAllWindows()
