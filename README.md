@@ -1,6 +1,6 @@
-# SheHacks
+# ASLTranslator
 
-This is our Hand Recognition App for SheHacks.
+This is our Hand Recognition App for SheHacks, but has been continued beyond.
 
 ## Authors:
 - Ryan Nicholas, Sophomore
