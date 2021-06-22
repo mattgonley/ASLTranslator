@@ -19,21 +19,33 @@ def load_model():
     m.add(layers.Dense(32, activation='relu'))
     m.add(layers.Dense(3, activation='softmax'))  # get the softmax
 
-    m.load_weights('cnn.h5')
+    m.load_weights('./notebooks/cnn.h5')
     return m
 
 
 if __name__ == '__main__':
+    model = load_model()
+    labels = ['A', 'B', 'C']
     vid = cv2.VideoCapture(0)
 
     while True:
         ret, frame = vid.read()
-
+        frame = cv2.resize(frame, (200, 200))
         if not ret:
             print('Video Stream Ended')
             break
 
-        color = cv2.cvtColor(frame, cv.COLOR_RGB2RGBA)
+        color = cv2.cvtColor(frame, cv2.COLOR_RGB2RGBA)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+
+        gray = gray / 255.0
+        gray = gray.reshape((1, 200, 200, -1))
+        pred = model.predict(gray)
+
+        pred = np.argmax(pred, axis=1)
+
+        print('Prediction:', labels[pred])
 
         cv2.imshow('frame', color)
 
