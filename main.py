@@ -5,10 +5,12 @@ import cv2
 import numpy as np
 import pandas as pd
 
+
 def load_model():
     m = keras.Sequential()
     # add the hidden layers to the CNN
-    m.add(layers.Conv2D(64, 3, activation='relu', input_shape=(200, 200, 1)))  # hidden layers
+    m.add(layers.Conv2D(64, 3, activation='relu',
+                        input_shape=(200, 200, 1)))  # hidden layers
     m.add(layers.MaxPooling2D((2, 2)))
     m.add(layers.Conv2D(64, 1, activation='relu'))  # more layers ...
     m.add(layers.MaxPooling2D((2, 2)))
@@ -38,14 +40,13 @@ if __name__ == '__main__':
         color = cv2.cvtColor(frame, cv2.COLOR_RGB2RGBA)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-
         gray = gray / 255.0
         gray = gray.reshape((1, 200, 200, -1))
         pred = model.predict(gray)
 
         pred = np.argmax(pred, axis=1)
 
-        print('Prediction:', labels[pred])
+        print('Prediction:', labels[pred[0]])
 
         cv2.imshow('frame', color)
 
