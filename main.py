@@ -46,7 +46,7 @@ if __name__ == '__main__':
         probs = model.predict_proba(gray)
         pred = np.argmax(pred, axis=1)
 
-        print('Prediction:', labels[pred[0]], '- Prob:', probs)
+        print('Prediction:', labels[pred[0]])
 
         cv2.imshow('frame', color)
 
