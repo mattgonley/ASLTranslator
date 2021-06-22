@@ -43,10 +43,10 @@ if __name__ == '__main__':
         gray = gray / 255.0
         gray = gray.reshape((1, 200, 200, -1))
         pred = model.predict(gray)
-
+        probs = model.predict_proba(gray)
         pred = np.argmax(pred, axis=1)
 
-        print('Prediction:', labels[pred[0]])
+        print('Prediction:', labels[pred[0]], '- Prob:', probs)
 
         cv2.imshow('frame', color)
 
